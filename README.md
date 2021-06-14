@@ -1,24 +1,28 @@
-# README
+神速さんのこのページをもとにつくったRailsアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Railsアプリの開発環境向けDockerfile + docker-compose.yml
+- https://sinsoku.hatenablog.com/entry/2021/03/24/100000
 
-Things you may want to cover:
+### 初回の環境構築
+- $ docker-compose build
+- $ docker-compose run --rm web bin/setup
+  - bundle install, yarn install, db作成など
 
-* Ruby version
+### Webサーバの起動
+- $ docker-compose run --rm --service-ports web
+  - http://localhost:3000 からアクセスできる
 
-* System dependencies
+### Rails コマンドの実行
+- $ docker-compose run --rm web bin/rails -T
 
-* Configuration
+### コンテナ内 shell
+- $ docker-compose run --rm web bash
 
-* Database creation
+### テストの実行
+- $ docker-compose run --rm -e RAILS_ENV=test web bin/rails db:test:prepare
+- $ docker-compose run --rm -e RAILS_ENV=test web bin/rails test
 
-* Database initialization
+### 全てのvolumeを削除する
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- $ docker-compose down --volumes
+  - 開発環境を一新する
